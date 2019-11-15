@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import CoreData
+
 
 class ZadaniaViewController: UITableViewController {
     
     var zadania : [Zadanie] = []
     
     var defaults = UserDefaults.standard
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        zaladujDane()
+       // print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         /*
         if let czytaneZadania = defaults.array(forKey: "Zadania") as? [Zadanie] {
@@ -27,6 +33,7 @@ class ZadaniaViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
 
     // MARK: - Table view data source
@@ -72,9 +79,17 @@ class ZadaniaViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
             
-            let zadanie = Zadanie(tyt: textField.text!)
+            
+            
+            let zadanie = Zadanie(context: self.context)
+            
+            zadanie.tytul = textField.text
+            
+            zadanie.zrobione = false
             
             self.zadania.append(zadanie)
+            
+            self.saveData()
         
             
             self.tableView.reloadData()
@@ -92,5 +107,29 @@ class ZadaniaViewController: UITableViewController {
         
         
         
+    }
+    
+    func saveData() {
+        
+        do {
+            try context.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        
+    }
+    
+    func zaladujDane() {
+        let request: NSFetchRequest<Zadanie> = Zadanie.fetchRequest()
+        
+        do {
+            zadania = try context.fetch(request)
+        } catch {
+            print(error)
+        }
     }
 }
