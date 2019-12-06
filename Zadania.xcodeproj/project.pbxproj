@@ -15,6 +15,7 @@
 		21F0D3E1236447270005EDAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F0D3E0236447270005EDAE /* Assets.xcassets */; };
 		21F0D3E4236447270005EDAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F0D3E2236447270005EDAE /* LaunchScreen.storyboard */; };
 		21F0D3EC236448C00005EDAE /* ZadaniaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F0D3EB236448C00005EDAE /* ZadaniaViewController.swift */; };
+		489EEF83238976D2006B98CF /* KategorieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489EEF82238976D2006B98CF /* KategorieTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		21F0D3E3236447270005EDAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21F0D3E5236447270005EDAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21F0D3EB236448C00005EDAE /* ZadaniaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZadaniaViewController.swift; sourceTree = "<group>"; };
+		489EEF82238976D2006B98CF /* KategorieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KategorieTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				21F0D3D7236447210005EDAE /* AppDelegate.swift */,
 				21F0D3D9236447210005EDAE /* SceneDelegate.swift */,
 				21F0D3DB236447210005EDAE /* ViewController.swift */,
+				489EEF82238976D2006B98CF /* KategorieTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				21F0D3D8236447210005EDAE /* AppDelegate.swift in Sources */,
 				21A1800D23772D7B00134C8C /* ZadaniaModel.xcdatamodeld in Sources */,
 				21F0D3DA236447210005EDAE /* SceneDelegate.swift in Sources */,
+				489EEF83238976D2006B98CF /* KategorieTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

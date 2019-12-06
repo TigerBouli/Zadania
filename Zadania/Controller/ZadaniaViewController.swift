@@ -14,13 +14,16 @@ class ZadaniaViewController: UITableViewController {
     
     var zadania : [Zadanie] = []
     
-    var defaults = UserDefaults.standard
+   // var defaults = UserDefaults.standard
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        zaladujDane()
+        
+        let request: NSFetchRequest<Zadanie> = Zadanie.fetchRequest()
+        
+        zaladujDane(with: request)
        // print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         /*
@@ -62,9 +65,15 @@ class ZadaniaViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         
-        zadania[indexPath.row].zrobione = !zadania[indexPath.row].zrobione
+  //      zadania[indexPath.row].zrobione = !zadania[indexPath.row].zrobione
+        
+        context.delete(zadania[indexPath.row])
+        
+        zadania.remove(at: indexPath.row)
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveData()
         
         tableView.reloadData()
     }
@@ -123,8 +132,10 @@ class ZadaniaViewController: UITableViewController {
         
     }
     
-    func zaladujDane() {
-        let request: NSFetchRequest<Zadanie> = Zadanie.fetchRequest()
+    
+    
+    func zaladujDane(with request: NSFetchRequest<Zadanie>) {
+       
         
         do {
             zadania = try context.fetch(request)
@@ -132,4 +143,46 @@ class ZadaniaViewController: UITableViewController {
             print(error)
         }
     }
+}
+
+
+extension ZadaniaViewController: UISearchBarDelegate {
+    
+   
+    
+    
+    
+    
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            let request: NSFetchRequest<Zadanie> = Zadanie.fetchRequest()
+            zaladujDane(with: request)
+            tableView.reloadData()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+            
+        }
+        else {
+                let zapytanie : NSFetchRequest<Zadanie> = Zadanie.fetchRequest()
+                
+                let filtr = NSPredicate(format: "tytul CONTAINS[cd] %@", searchBar.text!)
+                
+                zapytanie.predicate = filtr
+                
+                let sortowanie = NSSortDescriptor(key: "tytul", ascending: true)
+                
+                zapytanie.sortDescriptors = [sortowanie]
+                
+                zaladujDane(with: zapytanie)
+                tableView.reloadData()
+                
+            }
+            
+        
+    }
+    
+    
 }
